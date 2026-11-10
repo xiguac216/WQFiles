@@ -146,6 +146,14 @@ of **Log** shows the group it got, or "No App Group" when it got none.
 
 ## Build and signing
 
+### 简体中文版构建
+
+本分支已将应用界面、操作提示和内置系统应用名称翻译为简体中文。
+在 GitHub 仓库的 **Actions → Build Chinese IPA → Run workflow** 中启动构建，
+或向 `main` / `zh-hans` 分支推送更改。工作流会在 macOS 上先运行原有回归测试，
+再编译并检查 IPA；成功后可从 **Artifacts → WQFiles-zh-Hans** 下载。
+最低系统版本仍为 iOS 26.0，IPA 采用 ad-hoc 签名，安装前需要重新签名并保留 App Group。
+
 `./build.sh` compiles an arm64 binary and ad-hoc signs it with an App Group
 entitlement (`group.cz.kolbi.wqfiles`). The technique needs an App Group, so
 re-sign with a tool that keeps one; the app uses whichever group it actually

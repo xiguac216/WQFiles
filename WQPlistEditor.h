@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WQPlistEditorViewController : UITableViewController <WQUnsavedEditing>
 // Loads `path` itself. openAsText / openAsHex (optional) switch to the other
-// viewers from the "Open As" menu.
+// viewers from the "打开方式" menu.
 - (instancetype)initWithPath:(NSString *)path readOnly:(BOOL)readOnly;
 @property (nonatomic, copy, nullable) void (^openAsText)(void);
 @property (nonatomic, copy, nullable) void (^openAsHex)(void);

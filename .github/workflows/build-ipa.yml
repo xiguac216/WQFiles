@@ -1,0 +1,43 @@
+name: Build Chinese IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, zh-hans]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          python3 --version
+      - name: Run regression suites and build IPA
+        run: bash build.sh
+      - name: Upload IPA
+        uses: actions/upload-artifact@v7
+        with:
+          name: WQFiles-zh-Hans
+          path: WQFiles.ipa
+          if-no-files-found: error
+          compression-level: 0
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: WQFiles-test-logs
+          path: .work/tests/**/*.log
+          if-no-files-found: ignore
